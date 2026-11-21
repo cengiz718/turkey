@@ -28,13 +28,11 @@ jobs:
         run: |
           PROJECT_DIR=$(find . -maxdepth 3 -name "settings.gradle*" -printf '%h\n' | head -n 1)
           if [ -z "$PROJECT_DIR" ]; then
-            echo "HATA: Depoda settings.gradle veya settings.gradle.kts dosyasi bulunamadi! Lutfen proje dosyalarini (ZIP olarak degil, klasor/dosya olarak) depoya yukleyin."
-            ls -la
+            echo "HATA: settings.gradle veya settings.gradle.kts bulunamadi!"
             exit 1
           fi
           echo "Proje dizini bulundu: $PROJECT_DIR"
           cd "$PROJECT_DIR"
-          echo "PLACES_KEY=${{ secrets.PLACES_KEY }}" > local.properties
           gradle assembleDebug
 
       - name: Upload APK Artifact
